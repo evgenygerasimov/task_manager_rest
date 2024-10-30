@@ -1,6 +1,5 @@
 package com.evgenygerasimov.taskmanagerrest.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,7 +20,6 @@ public class User implements UserDetails {
     @Column(name = "username")
     private String username;
     @Column(name = "password")
-    @JsonIgnore
     private String password;
     @Column(name = "enabled")
     private int enabled = 1;

@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -30,16 +31,10 @@ public class UserController {
     }
 
     @GetMapping("/")
-    public String home() {
+    public ResponseEntity<String> home() {
         if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser")) {
-            return "You have successfully logged in!";
-        } else return "login or registration!";
-    }
-
-    @GetMapping("/checkName")
-    public String checkName() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return auth.getName();
+            return ResponseEntity.ok("You are logged in");
+        } else return ResponseEntity.ok("You are not logged in");
     }
 
     @PostMapping("/login")
@@ -55,13 +50,13 @@ public class UserController {
     }
 
     @PostMapping("/addNewUser")
-    public String addNewUser(@RequestBody User user) {
+    public ResponseEntity<User> addNewUser(@RequestBody User user) {
         user.setPassword("{bcrypt}" + passwordEncoder.encode(user.getPassword()));
         Role role = new Role();
         role.setUsername(user.getUsername());
         role.setAuthority(user.getRole());
         userService.save(user);
         roleService.save(role);
-        return "User was successfully added to the database";
+        return ResponseEntity.ok(user);
     }
 }

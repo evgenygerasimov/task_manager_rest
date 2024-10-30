@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
 import javax.sql.DataSource;
 
 @Configuration
@@ -38,9 +39,9 @@ public class WebSecurityConfig {
                 )
                 .authenticationProvider(authenticationProvider())
                 .formLogin(login -> login
-                                .loginPage("/login")
-                                .loginProcessingUrl("/login")
-                                .permitAll()
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .permitAll()
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
@@ -50,7 +51,6 @@ public class WebSecurityConfig {
 
         return http.build();
     }
-
 
     @Bean
     public UserDetailsManager userDetailsManager(DataSource dataSource) {

@@ -5,6 +5,7 @@ import com.evgenygerasimov.taskmanagerrest.entity.User;
 import com.evgenygerasimov.taskmanagerrest.service.TaskService;
 import com.evgenygerasimov.taskmanagerrest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.HandlerMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +25,7 @@ public class TaskController {
     private final UserService userService;
 
     @Autowired
-    public TaskController(TaskService taskService, UserService userService) {
+    public TaskController(TaskService taskService, UserService userService, @Qualifier("resourceHandlerMapping") HandlerMapping resourceHandlerMapping) {
         this.taskService = taskService;
         this.userService = userService;
     }
@@ -43,12 +45,12 @@ public class TaskController {
 
     @PreAuthorize("hasAuthority('ROLE_CUSTOMER')")
     @PostMapping("/addNewTask")
-    public String addNewTask(@RequestBody Task task) {
+    public ResponseEntity<Task> addNewTask(@RequestBody Task task) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         task.setAuthor(authentication.getName());
         task.setUser(userService.findByUsername(authentication.getName()));
         taskService.saveTask(task);
-        return "Task added successfully";
+        return ResponseEntity.ok(task);
     }
 
     @PutMapping("/updateTask")
@@ -77,17 +79,14 @@ public class TaskController {
 
     @PreAuthorize("hasAuthority('ROLE_CUSTOMER')")
     @DeleteMapping("/deleteTask/{id}")
-    public String deleteTask(@PathVariable("id") int id) {
+    public ResponseEntity<?> deleteTask(@PathVariable("id") int id) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByUsername(auth.getName());
-        int taskId = 0;
-        for (Task task : user.getTasks()) {
-            if (task.getId() == id) {
-                taskId = task.getId();
-            }
-        }
-        taskService.deleteTask(taskId);
-        return "Task deleted successfully";
+        if (user.getTasks().contains(taskService.getTaskById(id))) {
+            taskService.deleteTask(id);
+            return ResponseEntity.ok("Task deleted successfully");
+        } else
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 
     @GetMapping("/userTasks/{userName}")
