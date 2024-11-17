@@ -1,4 +1,4 @@
-package com.evgenygerasimov.taskmanagerrest.entity;
+package com.evgenygerasimov.task_manager_rest.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import java.util.*;
 
 @Entity
@@ -17,7 +18,10 @@ import java.util.*;
 public class User implements UserDetails {
 
     @Id
-    @Column(name = "username")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+    @Column(name = "username", unique = true)
     private String username;
     @Column(name = "password")
     private String password;

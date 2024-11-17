@@ -1,15 +1,17 @@
-package com.evgenygerasimov.taskmanagerrest.entity;
+package com.evgenygerasimov.task_manager_rest.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Setter
 @Getter
 @Entity
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "tasks")
 public class Task {
 
@@ -32,10 +34,8 @@ public class Task {
     @Column(name = "comment")
     private String comment;
     @ManyToOne
-    @JoinColumn(name = "username")
+    @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
 
-    public Task() {
-    }
 }

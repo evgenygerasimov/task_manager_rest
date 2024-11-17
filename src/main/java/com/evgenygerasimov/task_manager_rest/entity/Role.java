@@ -1,4 +1,4 @@
-package com.evgenygerasimov.taskmanagerrest.entity;
+package com.evgenygerasimov.task_manager_rest.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

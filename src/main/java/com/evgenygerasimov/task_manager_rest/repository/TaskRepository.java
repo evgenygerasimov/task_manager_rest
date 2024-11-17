@@ -1,8 +1,7 @@
-package com.evgenygerasimov.taskmanagerrest.repository;
+package com.evgenygerasimov.task_manager_rest.repository;
 
-import com.evgenygerasimov.taskmanagerrest.entity.Task;
+import com.evgenygerasimov.task_manager_rest.entity.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.List;
 
 public interface TaskRepository extends JpaRepository<Task, Integer> {
 }
