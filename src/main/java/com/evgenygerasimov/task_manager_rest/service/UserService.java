@@ -42,7 +42,6 @@ public class UserService {
         return userRepository.findAll();
     }
 
-
     public List<UserDTO> convertUsersListToUsersDTOList(List<User> users) {
         List<UserDTO> usersDTO = new ArrayList<>();
         for (User user : users) {

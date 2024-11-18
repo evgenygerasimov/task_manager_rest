@@ -2,7 +2,6 @@ package com.evgenygerasimov.task_manager_rest.service;
 
 import com.evgenygerasimov.task_manager_rest.entity.Task;
 import com.evgenygerasimov.task_manager_rest.entity.User;
-import com.evgenygerasimov.task_manager_rest.exception.AuthenticationException;
 import com.evgenygerasimov.task_manager_rest.exception.TaskNotFoundException;
 import com.evgenygerasimov.task_manager_rest.exception.UserNotFoundException;
 import com.evgenygerasimov.task_manager_rest.repository.TaskRepository;
@@ -65,7 +64,7 @@ public class TaskService {
         if (user.getTasks().contains(getTaskById(id))) {
             taskRepository.deleteById(id);
         } else
-            throw new RuntimeException("You are not authorized to delete this task");
+            throw new TaskNotFoundException("Task what you tried to delete is not found in your tasks list");
     }
 
     public List<Task> findAllTasks() {
@@ -97,7 +96,7 @@ public class TaskService {
             updatedTask.setStatus(task.getStatus());
             updatedTask.setComment(task.getComment());
         } else {
-            throw new AuthenticationException("You are not authorized to update this task");
+            throw new TaskNotFoundException("Task what you tried to update is not found in your tasks list");
         }
         taskRepository.save(updatedTask);
         return updatedTask;
