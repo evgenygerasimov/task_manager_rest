@@ -1,6 +1,10 @@
 package com.evgenygerasimov.task_manager_rest.constants;
 
+import lombok.Getter;
+
+@Getter
 public enum TokenLifeTime {
+
     TEN_MINUTES(600000),
     THIRTY_MINUTES(1800000),
     ;
@@ -11,7 +15,4 @@ public enum TokenLifeTime {
         this.minutes = minutes;
     }
 
-    public int getMinutes() {
-        return minutes;
-    }
 }

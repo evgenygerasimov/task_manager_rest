@@ -1,8 +1,9 @@
-package com.evgenygerasimov.task_manager_rest.security;
+package com.evgenygerasimov.task_manager_rest.config.security;
 
 
 import com.evgenygerasimov.task_manager_rest.constants.TokenLifeTime;
 import com.evgenygerasimov.task_manager_rest.entity.Token;
+import com.evgenygerasimov.task_manager_rest.repository.TokenRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

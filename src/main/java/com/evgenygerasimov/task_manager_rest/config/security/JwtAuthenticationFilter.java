@@ -1,4 +1,4 @@
-package com.evgenygerasimov.task_manager_rest.security;
+package com.evgenygerasimov.task_manager_rest.config.security;
 
 
 import jakarta.servlet.FilterChain;

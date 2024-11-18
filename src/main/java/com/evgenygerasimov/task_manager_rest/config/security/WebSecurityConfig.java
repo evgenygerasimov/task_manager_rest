@@ -1,4 +1,4 @@
-package com.evgenygerasimov.task_manager_rest.security;
+package com.evgenygerasimov.task_manager_rest.config.security;
 
 import com.evgenygerasimov.task_manager_rest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
