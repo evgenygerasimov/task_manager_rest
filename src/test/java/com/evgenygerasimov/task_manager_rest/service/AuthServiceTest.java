@@ -123,6 +123,5 @@ public class AuthServiceTest {
         String result = authService.logout(validTokenDTO);
         //assert
         assertEquals("You have already logged out", result);
-
     }
 }
