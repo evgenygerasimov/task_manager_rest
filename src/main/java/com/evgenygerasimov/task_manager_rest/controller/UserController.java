@@ -41,7 +41,7 @@ public class UserController {
             summary = "Create a new user",
             description = "This endpoint is used to create a new user. " +
                     "The user's password will be encrypted before saving it to the database." +
-                    "The user's role will be set to the role (ROLE_USER) " +
+                    "The user's role will be set to the role (ROLE_EXECUTOR) " +
                     "if the user is a regular user or to the role (ROLE_ADMIN) if the user is an admin." +
                     "            The user object have to be provided in the request body in view JSON format." +
                     "            The data has been in the format: {" +

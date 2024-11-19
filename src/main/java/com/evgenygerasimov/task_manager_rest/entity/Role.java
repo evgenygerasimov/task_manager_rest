@@ -22,6 +22,6 @@ public class Role {
 
     @Column(name = "authority")
     @Schema(description = "Role assigned to user",
-            example = "ROLE_USER", accessMode = Schema.AccessMode.READ_ONLY)
+            example = "ROLE_ADMIN", accessMode = Schema.AccessMode.READ_ONLY)
     private String authority;
 }
