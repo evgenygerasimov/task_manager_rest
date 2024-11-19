@@ -133,6 +133,5 @@ public class UserServiceTest {
         //assert
         assertNotNull(userDetails);
         assertEquals(user.getUsername(), userDetails.getUsername());
-
     }
 }
